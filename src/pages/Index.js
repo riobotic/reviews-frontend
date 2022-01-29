@@ -32,13 +32,13 @@ function Index(props) {
 
   // loaded function
   const loaded = () => {
-    return props.review.map((review) => (
-      <div key={review._id} className="review">
-        <Link to={`/review/${review._id}`}>
-          <h1>{review.name}</h1>
+    return props.reviews.map((rate) => (
+      <div key={rate._id} className="rate">
+        <Link to={`/reviews/${rate._id}`}>
+          <h1>{rate.name}</h1>
         </Link>
-        <h2>{review.rating}</h2>
-        <h3>{review.description}</h3>
+        <h2>{rate.rating}</h2>
+        <h3>{rate.description}</h3>
       </div>
     ))
   }
@@ -71,9 +71,9 @@ function Index(props) {
           placeholder="description"
           onChange={handleChange}
         />
-        <input type="submit" value="Create review" />
+        <input type="submit" value="Create Review" />
       </form>
-      {props.review ? loaded() : loading()}
+      {props.reviews ? loaded() : loading()}
     </section>
   )
 }

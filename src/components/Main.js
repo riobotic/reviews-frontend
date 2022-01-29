@@ -6,13 +6,13 @@ import Show from '../pages/Show';
 function Main(props) {
   const [reviews, setReview] = useState(null)
 
-  const URL = "https://reviews-backend-mr.herokuapp.com/"
+  const URL = "http://localhost:3000/"
 
   const getReview = async () => {
     const response = await fetch(URL)
     const data = await response.json()
-    setReview(data)
-  }
+    setReview(data);
+  };
 
   const createReview = async (person) => {
     // make post request to create Review
@@ -22,23 +22,23 @@ function Main(props) {
         "Content-Type": "Application/json",
       },
       body: JSON.stringify(person),
-    })
+    });
     // update list of Review
-    getReview()
-  }
+    getReview();
+  };
 
-  const updateReview = async (person, id) => {
+  const updateReview = async (rate, id) => {
     // make put request to create Review
     await fetch(URL + id, {
       method: "PUT",
       headers: {
         "Content-Type": "Application/json",
       },
-      body: JSON.stringify(person),
-    })
+      body: JSON.stringify(rate),
+    });
     // update list of Review
     getReview()
-  }
+  };
 
   const deleteReview = async (id) => {
     // make delete request to create Review
@@ -47,7 +47,7 @@ function Main(props) {
     })
     // update list of Review
     getReview()
-  }
+  };
 
   useEffect(() => getReview(), [])
 
@@ -70,7 +70,7 @@ function Main(props) {
         />
       </Switch>
     </main>
-  )
+  );
 }
 
-export default Main
+export default Main;

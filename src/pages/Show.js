@@ -1,10 +1,10 @@
 import { useState } from "react"
 function Show(props) {
   const id = props.match.params.id
-  const people = props.people
-  const person = people.find((p) => p._id === id)
+  const reviews = props.reviews
+  const rate = reviews.find((p) => p._id === id)
 
-    const [editForm, setEditForm] = useState(person)
+    const [editForm, setEditForm] = useState(rate)
 
     const handleChange = (event) => {
       setEditForm((prevState) => ({
@@ -19,24 +19,24 @@ function Show(props) {
         props.history.push("/");
       };
 
-      const removeReview = () => {
-        props.deleteReview(review._id);
+      const removeRate = () => {
+        props.deleteReview(reviews._id);
         props.history.push("/");
       };
 
 
     return (
-      <div className="review">
-        <h1>{review.name}</h1>
-        <h2>{review.rating}</h2>
-        <h3>{review.descripton}</h3>
-        <button id="delete" onClick={removeReview}>
+      <div className="rate">
+        <h1>{rate.name}</h1>
+        <h2>{rate.rating}</h2>
+        <h3>{rate.descripton}</h3>
+        <button id="delete" onClick={removeRate}>
         DELETE
       </button>
         <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={editorm.name}
+          value={editForm.name}
           name="name"
           placeholder="name"
           onChange={handleChange}
