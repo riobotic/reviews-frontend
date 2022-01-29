@@ -1,12 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Switch, } from 'react-router-dom';
 import Index from '../pages/Index';
 import Show from '../pages/Show';
 
 function Main(props) {
   const [reviews, setReview] = useState(null)
 
-  const URL = "http://localhost:3000/reviews/"
+  const URL = "https://reviews-backend-mr.herokuapp.com/"
 
   const getReview = async () => {
     const response = await fetch(URL)
@@ -14,16 +14,38 @@ function Main(props) {
     setReview(data)
   }
 
-  const createReview = async (reviews) => {
-    // make post request
+  const createReview = async (person) => {
+    // make post request to create Review
     await fetch(URL, {
       method: "POST",
       headers: {
         "Content-Type": "Application/json",
       },
-      body: JSON.stringify(reviews),
+      body: JSON.stringify(person),
     })
-    // update list of reviews
+    // update list of Review
+    getReview()
+  }
+
+  const updateReview = async (person, id) => {
+    // make put request to create Review
+    await fetch(URL + id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify(person),
+    })
+    // update list of Review
+    getReview()
+  }
+
+  const deleteReview = async (id) => {
+    // make delete request to create Review
+    await fetch(URL + id, {
+      method: "DELETE",
+    })
+    // update list of Review
     getReview()
   }
 
@@ -35,7 +57,17 @@ function Main(props) {
         <Route exact path="/">
           <Index reviews={reviews} createReview={createReview} />
         </Route>
-        <Route path="/reviews/:id" render={(rp) => <Show {...rp} />} />
+        <Route
+          path="/review/:id"
+          render={(rp) => (
+            <Show
+              reviews={reviews}
+              updateReview={updateReview}
+              deleteReview={deleteReview}
+              {...rp}
+            />
+          )}
+        />
       </Switch>
     </main>
   )
