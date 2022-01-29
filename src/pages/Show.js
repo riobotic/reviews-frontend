@@ -1,39 +1,35 @@
-import { useState } from "react"
-function Show(props) {
-  const id = props.match.params.id
-  const reviews = props.reviews
-  const rate = reviews.find((p) => p._id === id)
 
-    const [editForm, setEditForm] = useState(rate)
-
-    const handleChange = (event) => {
-      setEditForm((prevState) => ({
-        ...prevState,
-        [event.target.name]: event.target.value,
-      }))
-    }
   
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        props.updateReview(editForm);
-        props.history.push("/");
-      };
+import { useState } from "react";
+function Show(props) {
+  const id = props.match.params.id;
+  const review = props.review;
+  const rate = rate.find((p) => p._id === id);
 
-      const removeRate = () => {
-        props.deleteReview(reviews._id);
-        props.history.push("/");
-      };
+  const [editForm, setEditForm] = useState(person);
 
+  const handleChange = (event) => {
+    setEditForm({ ...editForm, [event.target.name]: event.target.value });
+  };
 
-    return (
-      <div className="rate">
-        <h1>{rate.name}</h1>
-        <h2>{rate.rating}</h2>
-        <h3>{rate.descripton}</h3>
-        <button id="delete" onClick={removeRate}>
-        DELETE
-      </button>
-        <form onSubmit={handleSubmit}>
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.updateReview(editForm);
+    props.history.push("/")
+  };
+
+  const removeReview = () => {
+      props.deleteReview(rate._id)
+      props.history.push("/")
+  }
+
+  return (
+    <div className="person">
+      <h1>{rate.name}</h1>
+      <h3>{rate.rating}</h3>
+      <h3>{rate.description}</h3>
+      <button id="delete" onClick={removeRate}>DELETE</button>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={editForm.name}
@@ -61,4 +57,4 @@ function Show(props) {
   );
 }
 
-export default Show
+export default Show;

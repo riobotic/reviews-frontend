@@ -1,6 +1,5 @@
-
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useState } from "react";
+import {Link} from "react-router-dom"
 
 function Index(props) {
   // state to hold formData
@@ -8,45 +7,38 @@ function Index(props) {
     name: "",
     rating: "",
     description: "",
-  })
+  });
 
   // handleChange function for form
   const handleChange = (event) => {
-    setNewForm((prevState) => ({
-      ...prevState,
-      [event.target.name]: event.target.value,
-    }))
-  }
+    setNewForm({ ...newForm, [event.target.name]: event.target.value });
+  };
 
   // handle submit function for form
   const handleSubmit = (event) => {
-    event.preventDefault()
-    props.createReview(newForm)
+    event.preventDefault();
+    props.createReview(newForm);
     setNewForm({
       name: "",
       rating: "",
       description: "",
-    })
-  }
-
+    });
+  };
 
   // loaded function
   const loaded = () => {
-    return props.reviews.map((rate) => (
+    return props.review.map((rate) => (
       <div key={rate._id} className="rate">
-        <Link to={`/reviews/${rate._id}`}>
-          <h1>{rate.name}</h1>
-        </Link>
-        <h2>{rate.rating}</h2>
+        <Link to={`/reviews/${rate._id}`}><h1>{rate.name}</h1></Link>
+        <h3>{rate.rating}</h3>
         <h3>{rate.description}</h3>
       </div>
-    ))
-  }
+    ));
+  };
 
   const loading = () => {
-    return <h1>Loading...</h1>
-  }
-
+    return <h1>Loading...</h1>;
+  };
   return (
     <section>
       <form onSubmit={handleSubmit}>
@@ -73,9 +65,9 @@ function Index(props) {
         />
         <input type="submit" value="Create Review" />
       </form>
-      {props.reviews ? loaded() : loading()}
+      {props.people ? loaded() : loading()}
     </section>
-  )
+  );
 }
 
-export default Index
+export default Index;

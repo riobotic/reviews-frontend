@@ -1,67 +1,61 @@
-import { useEffect, useState } from 'react';
-import { Route, Switch, } from 'react-router-dom';
-import Index from '../pages/Index';
-import Show from '../pages/Show';
+import { useEffect, useState } from "react";
+import { Route, Switch } from "react-router-dom";
+import Index from "../pages/Index";
+import Show from "../pages/Show";
 
 function Main(props) {
-  const [reviews, setReview] = useState(null)
+  const [reviews, setReview] = useState(null);
 
-  const URL = "http://localhost:3000/"
+  const URL = "http://localhost:4000/reviews/";
 
   const getReview = async () => {
-    const response = await fetch(URL)
-    const data = await response.json()
+    const response = await fetch(URL);
+    const data = await response.json();
     setReview(data);
   };
 
-  const createReview = async (person) => {
-    // make post request to create Review
+  const createReview = async (rate) => {
     await fetch(URL, {
-      method: "POST",
+      method: "post",
       headers: {
-        "Content-Type": "Application/json",
-      },
-      body: JSON.stringify(person),
-    });
-    // update list of Review
-    getReview();
-  };
-
-  const updateReview = async (rate, id) => {
-    // make put request to create Review
-    await fetch(URL + id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "Application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(rate),
     });
-    // update list of Review
-    getReview()
+    getReview();
+  };
+
+  const updateReview = async (rate) => {
+    await fetch(URL + rate._id, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rate),
+    });
+    getReview();
   };
 
   const deleteReview = async (id) => {
-    // make delete request to create Review
     await fetch(URL + id, {
-      method: "DELETE",
-    })
-    // update list of Review
-    getReview()
+      method: "delete",
+    });
+    getReview();
   };
 
-  useEffect(() => getReview(), [])
+  useEffect(() => getReview(), []);
 
   return (
     <main>
       <Switch>
         <Route exact path="/">
-          <Index reviews={reviews} createReview={createReview} />
+          <Index review={review} createReview={createReview} />
         </Route>
         <Route
-          path="/review/:id"
+          path="/reviews/:id"
           render={(rp) => (
             <Show
-              reviews={reviews}
+              review={review}
               updateReview={updateReview}
               deleteReview={deleteReview}
               {...rp}
