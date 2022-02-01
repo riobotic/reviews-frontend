@@ -1,8 +1,7 @@
 import { useState } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 function Index(props) {
-  // state to hold formData
   const [newForm, setNewForm] = useState({
     name: "",
     rating: "",
@@ -11,13 +10,16 @@ function Index(props) {
 
   // handleChange function for form
   const handleChange = (event) => {
-    setNewForm({ ...newForm, [event.target.name]: event.target.value });
+    setNewForm((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   // handle submit function for form
   const handleSubmit = (event) => {
-    event.preventDefault();
-    props.createReview(newForm);
+    event.preventDefault()
+    props.createReview(newForm)
     setNewForm({
       name: "",
       rating: "",
@@ -51,13 +53,6 @@ function Index(props) {
         />
         <input
           type="text"
-          value={newForm.rating}
-          name="rating"
-          placeholder="rating"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
           value={newForm.description}
           name="description"
           placeholder="description"
@@ -65,7 +60,7 @@ function Index(props) {
         />
         <input type="submit" value="Create Review" />
       </form>
-      {props.people ? loaded() : loading()}
+      {props.review ? loaded() : loading()}
     </section>
   );
 }

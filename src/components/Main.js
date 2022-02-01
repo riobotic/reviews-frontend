@@ -1,49 +1,55 @@
-import { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
-import Index from "../pages/Index";
-import Show from "../pages/Show";
+import { useEffect, useState } from "react"
+import { Route, Switch } from "react-router-dom"
+import Index from "../pages/Index"
+import Show from "../pages/Show"
 
 function Main(props) {
-  const [reviews, setReview] = useState(null);
+  const [review, setReview] = useState(null)
 
-  const URL = "http://localhost:4000/reviews/";
+  const URL = "https://reviews-backend-mr.herokuapp.com/reviews"
 
   const getReview = async () => {
-    const response = await fetch(URL);
-    const data = await response.json();
-    setReview(data);
-  };
+    const response = await fetch(URL)
+    const data = await response.json()
+    setReview(data)
+  }
 
   const createReview = async (rate) => {
+    // make post request to create Review
     await fetch(URL, {
-      method: "post",
+      method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "Application/json",
       },
       body: JSON.stringify(rate),
-    });
-    getReview();
-  };
+    })
+    // update list of Review
+    getReview()
+  }
 
-  const updateReview = async (rate) => {
-    await fetch(URL + rate._id, {
-      method: "put",
+  const updateReview = async (rate, id) => {
+    // make put request to create Review
+    await fetch(URL + id, {
+      method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "Application/json",
       },
       body: JSON.stringify(rate),
-    });
-    getReview();
-  };
+    })
+    // update list of Review
+    getReview()
+  }
 
   const deleteReview = async (id) => {
+    // make delete request to create Review
     await fetch(URL + id, {
-      method: "delete",
-    });
-    getReview();
-  };
+      method: "DELETE",
+    })
+    // update list of Review
+    getReview()
+  }
 
-  useEffect(() => getReview(), []);
+  useEffect(() => getReview(), [])
 
   return (
     <main>
@@ -64,7 +70,7 @@ function Main(props) {
         />
       </Switch>
     </main>
-  );
+  )
 }
 
-export default Main;
+export default Main
