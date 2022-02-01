@@ -6,7 +6,7 @@ import Show from "../pages/Show"
 function Main(props) {
   const [review, setReview] = useState(null)
 
-  const URL = "https://reviews-backend-mr.herokuapp.com/reviews"
+  const URL = "https://reviews-backend-mr.herokuapp.com/reviews/"
 
   const getReview = async () => {
     const response = await fetch(URL)
