@@ -14,7 +14,7 @@ GitHub
 
 This application is used to store my reviews of restaurants, espeically ones that I love. Ideally I can send this link out to folks whenever someone has a question about what I recommend food wise.
 
-Getting Started: Open up the App[https://musing-kirch-4547d0.netlify.app/] and when I want to add a new restaurant, I can go ahead and add into my app and have it update.
+Getting Started: Open up the [App](https://musing-kirch-4547d0.netlify.app/) and when I want to add a new restaurant, I can go ahead and add into my app and have it update.
 
 Future Updates: I'd like to have this app add a map which would update with locations
 
